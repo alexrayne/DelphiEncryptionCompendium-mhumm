@@ -185,7 +185,8 @@ type
     ,cmCTS3   // double CBC, with less secure padding of truncated final block
               // for DEC 3.0 compatibility only (see DECOptions.inc)
     {$ENDIF DEC3_CMCTS}
-  );
+    , cmCTR2, cmCTR4   //  counter mode with n-byte counter at last IV bytes
+    );
 
   /// <summary>
   ///   Each cipher algorithm has to implement a Encode and a Decode method which
