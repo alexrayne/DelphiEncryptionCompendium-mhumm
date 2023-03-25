@@ -134,6 +134,10 @@
         <Filename Value="DECUtil.inc"/>
         <Type Value="Include"/>
       </Item>
+      <Item>
+        <Filename Value="..\decccm.pas"/>
+        <UnitName Value="DECccm"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>
