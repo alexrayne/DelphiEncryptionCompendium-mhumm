@@ -108,6 +108,7 @@ vectors provided by NIST are used for the unit tests.
 * RC6
 * AES
 * AES-CCM  (RFC 3610 - Counter with CBC-MAC)
+* AES-KW  (RFC 3394 Key Wrapping )
 * Square
 * SCOP
 * Sapphire

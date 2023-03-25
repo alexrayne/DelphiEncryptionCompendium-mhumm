@@ -138,6 +138,10 @@
         <Filename Value="..\decccm.pas"/>
         <UnitName Value="DECccm"/>
       </Item>
+      <Item>
+        <Filename Value="..\deckw.pas"/>
+        <UnitName Value="DECKW"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

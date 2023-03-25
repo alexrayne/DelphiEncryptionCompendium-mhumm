@@ -12,7 +12,7 @@ uses
   DECCipherFormats, DECCipherInterface, DECCipherModes, DECCipherModesGCM, 
   DECCiphers, DECDataCipher, DECDataHash, DECFormat, DECFormatBase, 
   DECHashAuthentication, DECHashBase, DECHashBitBase, DECHashInterface, 
-  DECTypes, DECUtilRawByteStringHelper, DECccm;
+  DECTypes, DECUtilRawByteStringHelper, DECccm, DECKW;
 
 implementation
 
