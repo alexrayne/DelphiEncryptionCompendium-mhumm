@@ -252,6 +252,9 @@ type
     /// </summary>
     procedure EncodeCTS3(Source, Dest: PUInt8Array; Size: Integer); virtual;
     {$ENDIF}
+    // @arg Size - last unaligned block encoded as is - rest of block not aligned
+    procedure EncodeCTR(S,D: PByteArray; Size: Integer; cnt_sz: Integer);
+
     /// <summary>
     ///   Electronic Code Book
     ///   Mode cmECBx needs message padding to be a multiple of Cipher.BlockSize
@@ -341,6 +344,7 @@ type
     /// </remarks>
     procedure DecodeCTS3(Source, Dest: PUInt8Array; Size: Integer); virtual;
     {$ENDIF}
+
     /// <summary>
     ///   When setting mode to GCM the GCM implementing class instance needs to
     ///   be created
@@ -518,6 +522,8 @@ begin
     cmCFS8:   EncodeCFS8(@Source, @Dest, DataSize);
     cmCFSx:   EncodeCFSx(@Source, @Dest, DataSize);
     cmGCM :   EncodeGCM(@Source, @Dest, DataSize);
+    cmCTR2:   EncodeCTR (@Source, @Dest, DataSize, 2);
+    cmCTR4:   EncodeCTR (@Source, @Dest, DataSize, 4);
   end;
 end;
 
@@ -686,6 +692,41 @@ begin
     FBufferIndex := Size;
   end;
 end;
+
+procedure TDECCipherModes.EncodeCTR(S,D: PByteArray; Size: Integer; cnt_sz: Integer);
+var
+  I: Integer;
+
+  procedure ctr_next(cnt_sz: Integer);
+  var
+    pos : byte;
+  begin
+      for pos := FBufferSize-1 downto FBufferSize-1-cnt_sz do begin
+          inc( FFeedback[pos] );
+          if (FFeedback[pos] <> 0) then
+             exit;
+      end;
+  end;
+
+begin
+    I := 0;
+    while (I + FBufferSize) <= Size do begin
+      DoEncode(@FFeedback[0], FBuffer, FBufferSize);
+      XORBuffers(S[I], FBuffer[0], FBufferSize, D[I]);
+      ctr_next( cnt_sz );
+      Inc(I, FBufferSize);
+    end;
+
+    Dec(Size, I);
+    if Size > 0 then begin  // padding
+      DoEncode(@FFeedback[0], FBuffer, FBufferSize);
+      XORBuffers(S[I], FBuffer[0], Size, D[I]);
+      ctr_next( cnt_sz );
+      FState := csPadded;
+    end
+    else FState := csEncode;
+end;
+
 
 function TDECCipherModes.GetDataToAuthenticate: TBytes;
 begin
@@ -900,6 +941,8 @@ begin
     cmCFS8:   DecodeCFS8(@Source, @Dest, DataSize);
     cmCFSx:   DecodeCFSx(@Source, @Dest, DataSize);
     cmGCM :   DecodeGCM(@Source, @Dest, DataSize);
+    cmCTR2:   EncodeCTR (@Source, @Dest, DataSize, 2);
+    cmCTR4:   EncodeCTR (@Source, @Dest, DataSize, 4);
   end;
 end;
 
