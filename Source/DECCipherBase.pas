@@ -724,6 +724,10 @@ type
     property InitVector: PUInt8Array
       read   FInitializationVector;
 
+
+    property IVSize  : Integer      read FBufferSize;
+    property IV      : PUInt8Array   read FInitializationVector;
+
     /// <summary>
     ///   Cipher modes are used to derive a stream cipher from block cipher
     ///   algorithms. For this something from the last entrypted block (or for

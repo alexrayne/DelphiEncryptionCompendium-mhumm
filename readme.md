@@ -107,6 +107,7 @@ vectors provided by NIST are used for the unit tests.
 * RC4
 * RC6
 * AES
+* AES-CCM  (RFC 3610 - Counter with CBC-MAC)
 * Square
 * SCOP
 * Sapphire
@@ -145,6 +146,7 @@ Modes ending on x have been invented by the original developer of DEC
 * CFS8
 * CFSx
 * GCM
+* CTR2, CTR4 (2/4 byte counter mode)
 
 ## Contained key derivation algorithms:
 * KDF1
