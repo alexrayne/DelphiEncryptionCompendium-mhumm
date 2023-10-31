@@ -68,6 +68,14 @@ type
   TBlowfishMatrix = array[0..3, 0..255] of UInt32;
   TBlowfishKey    = array[0..17] of UInt32;
 
+    TKey128        = record
+     case integer of
+     0: ( b : array[0..15] of byte );
+     1: ( l : array[0..3] of LongWord );
+     2: ( q : array[0..1] of QWord );
+  end;
+  PKey128       = ^TKey128;
+
   /// <summary>
   ///   List of standard bit lengths defined in the official standard for some
   ///  algorithm property which allows a variable bit length.

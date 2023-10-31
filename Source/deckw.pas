@@ -45,9 +45,9 @@ var
     t : qword;
     //A : qword;
 
-    s : PByteArray;
-    d : PByteArray;
-    b : PByteArray;
+    s : PUInt8Array;
+    d : PUInt8Array;
+    b : PUInt8Array;
     bA: PQword;
 begin
     if ((DataSize and 7) <> 0) then
@@ -67,8 +67,8 @@ begin
     bA := PQword(b);
 
 
-    s := PByteArray(@source);
-    d := PByteArray(@dest);
+    s := PUInt8Array(@source);
+    d := PUInt8Array(@dest);
     //move(d[0], ba, 8);
     move(s[0], d[8], DataSize);
 
@@ -98,9 +98,9 @@ var
     t : qword;
     //A : qword;
 
-    s : PByteArray;
-    d : PByteArray;
-    b : PByteArray;
+    s : PUInt8Array;
+    d : PUInt8Array;
+    b : PUInt8Array;
     bA: PQword;
 begin
     if ((DataSize and 7) <> 0) then
@@ -121,8 +121,8 @@ begin
     bA := PQword(b);
 
 
-    s := PByteArray(@source);
-    d := PByteArray(@dest);
+    s := PUInt8Array(@source);
+    d := PUInt8Array(@dest);
     move(s[0], ba[0], 8);
     move(s[8], d[0], DataSize-8);
 
